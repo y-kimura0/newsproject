@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+    {% block contents%}
+    <br>
+        <div class="container">
+            <div class = "row">
+                <div class = "col offset-3">
+                    <strong>連絡を取りたいですか?
+                            以下のフォームに記入してメッセージを送信してください。
+                            できるだけ早くご連絡します。
+                    </strong>
+
+                    {% if messages %}
+                    <ul class=" list-unstyled" style="list-style: none;">
+                        {% for message in messages %}
+                        <li {%if messages.tags %} class="{{ message.tags }}" {% endif %}>
+
+                            {{ message }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <!-- 以下、フォームを表示するためのコード -->
+                    <div class ="my-5">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div class="orm-floating">
+                                <div class="form-group floating-label-form-group controls">
+                                    {{ field.label_tag }}
+
+                                    {{ field }}
+
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <br>
+                            <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <hr>
+{% endblock %}
